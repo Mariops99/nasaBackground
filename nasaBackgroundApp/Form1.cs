@@ -84,15 +84,23 @@ namespace nasaBackgroundApp
                         {
                             string responseBody = objReader.ReadToEnd();
                             var json = JsonConvert.DeserializeObject<dynamic>(responseBody);
-                            var imagenUrl = "";
+                            string imagenUrl = "";
+
+
                             if (!json.ContainsKey("hdurl"))
                             {
                                 if (!json.ContainsKey("url"))
                                 {
                                     descargarImagen(15, 04, 2003);
+                                    return;
                                 } else
                                 {
                                     imagenUrl = json.url.ToString();
+                                    if(imagenUrl.Contains("panorama"))
+                                    {
+                                        descargarImagen(15, 04, 2003);
+                                        return;
+                                    }
                                 }
                             } else
                             {
