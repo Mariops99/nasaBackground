@@ -14,10 +14,14 @@ namespace nasaBackgroundApp
         RegistryKey rkApp = Registry.CurrentUser.OpenSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", true);
         private DateTime fecha;
 
+
         public Form1()
         {
-            InitializeComponent();
 
+            InitializeComponent();
+            MenuItem exitMenuItem = new MenuItem("Exit", new EventHandler(Exit));
+            MenuItem openMenuItem = new MenuItem("Open", new EventHandler(Open));
+            notifyIcon1.ContextMenu = new ContextMenu(new MenuItem[] { openMenuItem, exitMenuItem });
 
         }
 
@@ -25,6 +29,19 @@ namespace nasaBackgroundApp
         {
             fecha = dateTimePicker1.Value;
             descargarImagen(fecha.Day, fecha.Month, fecha.Year);
+        }
+
+        void Open(object sender, EventArgs e)
+        { 
+            notifyIcon1.Visible = true;
+            new Form1();
+            this.Show();
+        }
+
+        void Exit(object sender, EventArgs e)
+        {
+            notifyIcon1.Visible = false;
+            Application.Exit();
         }
 
         private void label1_Click(object sender, EventArgs e)
@@ -134,6 +151,12 @@ namespace nasaBackgroundApp
             public static extern int SystemParametersInfo(int uAction, int uParam, string lpvParam, int fuWinIni);
             public const int SPI_SETDESKWALLPAPER = 20;
             public const int SPIF_SENDCHANGE = 0x2;
+        }
+
+        private void Form1_Close(object sender, FormClosingEventArgs e)
+        {
+            e.Cancel = true;
+            Hide();
         }
     }
 }
