@@ -119,6 +119,10 @@ namespace nasaBackgroundApp
                                     {
                                         descargarImagen(15, 04, 2003);
                                         return;
+                                    } else if(imagenUrl.Contains("youtube"))
+                                    {
+                                        descargarImagen(15, 04, 2003);
+                                        return;
                                     }
                                 }
                             } else
