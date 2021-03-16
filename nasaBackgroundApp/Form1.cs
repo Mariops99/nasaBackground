@@ -19,22 +19,21 @@ namespace nasaBackgroundApp
         {
 
             InitializeComponent();
-            MenuItem exitMenuItem = new MenuItem("Exit", new EventHandler(Exit));
-            MenuItem openMenuItem = new MenuItem("Open", new EventHandler(Open));
-            notifyIcon1.ContextMenu = new ContextMenu(new MenuItem[] { openMenuItem, exitMenuItem });
+
 
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            MenuItem exitMenuItem = new MenuItem("Exit", new EventHandler(Exit));
+            MenuItem openMenuItem = new MenuItem("Open", new EventHandler(Open));
+            notifyIcon1.ContextMenu = new ContextMenu(new MenuItem[] { openMenuItem, exitMenuItem });
             fecha = dateTimePicker1.Value;
             descargarImagen(fecha.Day, fecha.Month, fecha.Year);
         }
 
         void Open(object sender, EventArgs e)
         { 
-            notifyIcon1.Visible = true;
-            new Form1();
             this.Show();
         }
 
